@@ -6,13 +6,14 @@ import productshop.repository.CustomerRepository;
 import productshop.repository.ProductRepository;
 import productshop.service.CustomerService;
 import productshop.service.ProductService;
+import productshop.settings.DatabaseSettings;
 
 public class Main {
     public static void main(String[] args) {
         ConnectionManager testConnection = new ConnectionManager()
-                .setUser("postgres")
-                .setPassword("707070")
-                .setUrl("jdbc:postgresql://localhost:4070/product_shop")
+                .setUser(DatabaseSettings.USERNAME)
+                .setPassword(DatabaseSettings.PASSWORD)
+                .setUrl(DatabaseSettings.URL)
                 .connect();
 
         CategoryRepository categoryRepository = new CategoryRepository(testConnection);
