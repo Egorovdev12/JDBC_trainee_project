@@ -1,11 +1,15 @@
 package productshop.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Customer {
-    Integer id;
-    String name;
-    String phoneNumber;
-    int orderCount;
-    boolean hasLoyaltyCard;
+    private Integer id;
+    private String name;
+    private String phoneNumber;
+    private int orderCount;
+    private boolean hasLoyaltyCard;
+    private List<Order> orders = new ArrayList<>();
 
     public Customer(String name, String phoneNumber, boolean hasLoyaltyCard) {
         this.name = name;
@@ -42,6 +46,14 @@ public class Customer {
         return hasLoyaltyCard;
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
@@ -50,6 +62,7 @@ public class Customer {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", orderCount=" + orderCount +
                 ", hasLoyaltyCard=" + hasLoyaltyCard +
+                ", orders=" + orders +
                 '}';
     }
 }

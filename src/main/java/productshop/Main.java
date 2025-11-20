@@ -1,11 +1,14 @@
 package productshop;
 
-import productshop.entity.Customer;
+import productshop.entity.Order;
 import productshop.repository.CategoryRepository;
 import productshop.repository.CustomerRepository;
+import productshop.repository.OrderRepository;
 import productshop.repository.ProductRepository;
 import productshop.service.CustomerService;
 import productshop.service.ProductService;
+
+import java.time.LocalDateTime;
 
 public class Main {
     public static void main(String[] args) {
@@ -17,9 +20,12 @@ public class Main {
 
         CategoryRepository categoryRepository = new CategoryRepository(testConnection);
         ProductRepository productRepository = new ProductRepository(testConnection, categoryRepository);
-        ProductService productService = new ProductService(productRepository);
         CustomerRepository customerRepository = new CustomerRepository(testConnection);
+        OrderRepository orderRepository = new OrderRepository(testConnection);
+
+        ProductService productService = new ProductService(productRepository);
         CustomerService customerService = new CustomerService(customerRepository);
-        customerService.addCustomer(new Customer("Иван", "89665432211", false));
+
+        orderRepository.save(new Order(2, LocalDateTime.now()));
     }
 }
