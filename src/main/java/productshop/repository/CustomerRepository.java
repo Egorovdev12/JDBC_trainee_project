@@ -91,4 +91,17 @@ public class CustomerRepository {
         }
         return null;
     }
+
+    public void changeOrderCount(int idCustomer) {
+        String sql = "UPDATE customers SET order_count = order_count + 1 where id = (?)";
+        try(PreparedStatement preparedStatement = connectionManager.getConnection().prepareStatement(sql)){
+            preparedStatement.setInt(1, idCustomer);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+
 }

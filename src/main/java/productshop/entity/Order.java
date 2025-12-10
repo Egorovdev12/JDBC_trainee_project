@@ -12,17 +12,25 @@ public class Order {
     private final Integer customerId;
     private final LocalDateTime orderDate;
     private List<Product> basket = new ArrayList<>();
+    private double price;
 
-    public Order(Integer id, Integer customerId, LocalDateTime orderDate) {
+    public Order(Integer id) {
         this.id = id;
-        this.customerId = customerId;
-        this.orderDate = orderDate;
+        this.customerId = this.getCustomerId();
+        this.orderDate = LocalDateTime.now();    }
+
+    public Order( ) {
+        this.customerId = this.getCustomerId();
+        this.orderDate = LocalDateTime.now();
     }
 
-    public Order(Integer customerId, LocalDateTime orderDate) {
+    public Order(Integer customerId, double price) {
         this.customerId = customerId;
-        this.orderDate = orderDate;
+        this.price = price;
+        this.orderDate = LocalDateTime.now();
     }
+
+
 
     public Integer getId() {
         return id;
@@ -36,19 +44,40 @@ public class Order {
         return orderDate;
     }
 
-    public boolean addProductToBasket(Product product) {
-        return basket.add(product);
+    public void addProductToBasket(Product product) {
+         basket.add(product);
+         renewPrice(product.getPrice());
     }
 
-    public boolean removeProductFromBasket(Product product) {
-        return basket.remove(product);
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", customerId=" + customerId +
+                ", orderDate=" + orderDate +
+                ", basket=" + basket +
+                ", price=" + price +
+                '}';
     }
 
-    public double calculatePrice() {
-        double sum = 0;
-        for (Product product : basket) {
-            sum = sum + product.getPrice();
-        }
-        return sum;
+    public void removeProductFromBasket(Product product) {
+         basket.remove(product);
+         renewPrice(product.getPrice()*-1);
     }
+
+    public double getPrice() {
+        return price;
+    }
+
+    /* public double calculatePrice() {
+            double sum = 0;
+            for (Product product : basket) {
+                sum = sum + product.getPrice();
+            }
+            return sum;
+        }*/
+    public void renewPrice(double price) {
+        this.price = this.price + price;
+    }
+
 }
