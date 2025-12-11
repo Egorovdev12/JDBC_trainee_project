@@ -8,8 +8,7 @@ import java.util.List;
 
 public class CustomerService {
 
-    private CustomerRepository customerRepository;
-
+    private final CustomerRepository customerRepository;
     private final Integer MAX_CUSTOMER_NAME_LENGTH = 60;
 
     public CustomerService(CustomerRepository customerRepository) {
@@ -25,11 +24,12 @@ public class CustomerService {
     }
 
     public void addCustomer(Customer customer) {
-        if(customer.getName().length() > MAX_CUSTOMER_NAME_LENGTH){
+        if (customer.getName().length() > MAX_CUSTOMER_NAME_LENGTH) {
             throw new LongNameInputException("Длина имени превысила 60 символов");
         }
         customerRepository.addCustomer(customer);
     }
+
     public List<Customer> findByOrderCount(int orderCount) {
         return customerRepository.findByOrderCount(orderCount);
     }

@@ -100,8 +100,5 @@ public class CustomerRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
-
-
 }

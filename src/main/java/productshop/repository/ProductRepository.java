@@ -11,6 +11,10 @@ public class ProductRepository {
 
     private final ConnectionManager connectionManager;
     private final CategoryRepository categoryRepository;
+    private final String ID = "id";
+    private final String NAME = "name";
+    private final String PRICE = "price";
+    private final String CATEGORY_ID = "category_id";
 
     public ProductRepository(ConnectionManager connectionManager, CategoryRepository categoryRepository) {
         this.connectionManager = connectionManager;
@@ -50,10 +54,10 @@ public class ProductRepository {
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     return new Product(
-                            rs.getInt("id"),
-                            rs.getString("name"),
-                            rs.getDouble("price"),
-                            categoryRepository.getCategoryById(rs.getInt("category_id"))
+                            rs.getInt(ID),
+                            rs.getString(NAME),
+                            rs.getDouble(PRICE),
+                            categoryRepository.getCategoryById(rs.getInt(CATEGORY_ID))
                     );
                 }
             }
@@ -90,9 +94,9 @@ public class ProductRepository {
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                System.out.println(rs.getInt("id") + " " +
-                        rs.getString("name") + " " +
-                        rs.getDouble("price"));
+                System.out.println(rs.getInt(ID) + " " +
+                        rs.getString(NAME) + " " +
+                        rs.getDouble(PRICE));
             }
         } catch (SQLException e) {
             System.err.println("Ошибка при чтении: " + e.getMessage());

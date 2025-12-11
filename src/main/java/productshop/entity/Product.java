@@ -22,10 +22,6 @@ public class Product {
         this.category = category;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
     public String getName() {
         return name;
     }
@@ -34,16 +30,8 @@ public class Product {
         return category;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public double getPrice() {
         return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
     }
 
     @Override

@@ -7,17 +7,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDateTime;
 
 public class OrderRepository {
 
     private final ConnectionManager connectionManager;
+    private final String ID = "id";
+    private final String CUSTOMER_ID = "customer_id";
+    private final String ORDER_DATE = "order_date";
+    private final String TOTAL_PRICE = "total_price";
 
     public OrderRepository(ConnectionManager connectionManager) {
         this.connectionManager = connectionManager;
     }
 
-    // TODO полезность метода под сомнением
+    //TODO полезность метода под сомнением
     public Order save(Order orderForSave) {
         String sql = "INSERT INTO orders (customer_id, total_price) VALUES (?, ?)";
         try (PreparedStatement ps = connectionManager.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {

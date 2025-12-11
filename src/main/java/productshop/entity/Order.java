@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO Наверное нам все-таки нужен price заказа
-// TODO сделаем прайс, который будет динамически меняться, в зависимости от того, сколько продуктов сейчас в корзине
 public class Order {
 
     private Integer id;
@@ -17,9 +15,10 @@ public class Order {
     public Order(Integer id) {
         this.id = id;
         this.customerId = this.getCustomerId();
-        this.orderDate = LocalDateTime.now();    }
+        this.orderDate = LocalDateTime.now();
+    }
 
-    public Order( ) {
+    public Order() {
         this.customerId = this.getCustomerId();
         this.orderDate = LocalDateTime.now();
     }
@@ -30,23 +29,26 @@ public class Order {
         this.orderDate = LocalDateTime.now();
     }
 
-
-
-    public Integer getId() {
-        return id;
-    }
-
     public Integer getCustomerId() {
         return customerId;
     }
 
-    public LocalDateTime getOrderDate() {
-        return orderDate;
+    public double getPrice() {
+        return price;
     }
 
     public void addProductToBasket(Product product) {
          basket.add(product);
          renewPrice(product.getPrice());
+    }
+
+    public void removeProductFromBasket(Product product) {
+         basket.remove(product);
+         renewPrice(product.getPrice()*-1);
+    }
+
+    public void renewPrice(double price) {
+        this.price = this.price + price;
     }
 
     @Override
@@ -59,25 +61,4 @@ public class Order {
                 ", price=" + price +
                 '}';
     }
-
-    public void removeProductFromBasket(Product product) {
-         basket.remove(product);
-         renewPrice(product.getPrice()*-1);
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    /* public double calculatePrice() {
-            double sum = 0;
-            for (Product product : basket) {
-                sum = sum + product.getPrice();
-            }
-            return sum;
-        }*/
-    public void renewPrice(double price) {
-        this.price = this.price + price;
-    }
-
 }

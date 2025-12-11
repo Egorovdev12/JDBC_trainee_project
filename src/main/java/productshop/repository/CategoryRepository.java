@@ -15,6 +15,9 @@ public class CategoryRepository {
 
     private final ConnectionManager connectionManager;
 
+    private final String ID = "id";
+    private final String NAME = "name";
+
     public CategoryRepository(ConnectionManager connectionManager) {
         this.connectionManager = connectionManager;
     }
@@ -27,7 +30,7 @@ public class CategoryRepository {
             if (rows > 0) {
                 ResultSet keys = ps.getGeneratedKeys();
                 if (keys.next()) {
-                    int id = keys.getInt("id");
+                    int id = keys.getInt(ID);
                     return new CategoryDto(id, category.toString());
                 }
             }
@@ -44,7 +47,7 @@ public class CategoryRepository {
         try (Statement statement = connectionManager.getConnection().createStatement()) {
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
-                categories.add(Category.valueOf(rs.getString("name")));
+                categories.add(Category.valueOf(rs.getString(NAME)));
             }
         }
         catch (SQLException exception) {

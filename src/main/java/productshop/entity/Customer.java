@@ -19,8 +19,6 @@ public class Customer {
         this.hasLoyaltyCard = hasLoyaltyCard;
     }
 
-
-
     public Customer(Integer id, String name, String phoneNumber, boolean hasLoyaltyCard, int orderCount) {
         this.id = id;
         this.name = name;
@@ -31,10 +29,6 @@ public class Customer {
 
     public Order getCurrentdOrder() {
         return currentdOrder;
-    }
-
-    public Integer getId() {
-        return id;
     }
 
     public String getName() {
@@ -49,15 +43,24 @@ public class Customer {
         return orderCount;
     }
 
-    public boolean isHasLoyaltyCard() {
-        return hasLoyaltyCard;
-    }
-
     public List<Order> getOrdersHistory() {
         return ordersHistory;
     }
 
+    public boolean isHasLoyaltyCard() {
+        return hasLoyaltyCard;
+    }
 
+    public void createOrder() {
+        currentdOrder = new Order(this.id, 0);
+    }
+
+    public void addProductToOrder(Product product) {
+        if (currentdOrder == null) {
+            throw new RuntimeException("Ошибка, заказа не существует");
+        }
+        currentdOrder.addProductToBasket(product);
+    }
 
     @Override
     public String toString() {
@@ -70,18 +73,4 @@ public class Customer {
                 ", orders=" + ordersHistory +
                 '}';
     }
-
-    public void createOrder() {
-        currentdOrder = new Order(this.id, 0);
-    }
-
-    public void addProductToOrder(Product product) {
-        if(currentdOrder == null) {
-            throw new RuntimeException("Ошибка, заказа не существует");
-        }
-        currentdOrder.addProductToBasket(product);
-    }
-
-
-
 }
