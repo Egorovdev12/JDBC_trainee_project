@@ -1,4 +1,4 @@
-package productshop;
+package productshop.system;
 
 import java.sql.*;
 

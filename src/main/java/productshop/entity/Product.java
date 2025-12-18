@@ -26,6 +26,10 @@ public class Product {
         return name;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
     public Category getCategory() {
         return category;
     }

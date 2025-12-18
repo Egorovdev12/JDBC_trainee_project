@@ -1,6 +1,6 @@
 package productshop.repository;
 
-import productshop.ConnectionManager;
+import productshop.system.ConnectionManager;
 import productshop.entity.Customer;
 
 import java.sql.PreparedStatement;
