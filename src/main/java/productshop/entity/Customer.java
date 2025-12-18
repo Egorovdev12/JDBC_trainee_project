@@ -1,7 +1,10 @@
 package productshop.entity;
 
+import productshop.system.ProductCash;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Customer {
     private Integer id;
@@ -9,7 +12,6 @@ public class Customer {
     private String phoneNumber;
     private int orderCount;
     private boolean hasLoyaltyCard;
-    private List<Order> ordersHistory = new ArrayList<>();
     private Order currentdOrder;
 
     public Customer(String name, String phoneNumber, boolean hasLoyaltyCard) {
@@ -35,6 +37,10 @@ public class Customer {
         return name;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -43,9 +49,7 @@ public class Customer {
         return orderCount;
     }
 
-    public List<Order> getOrdersHistory() {
-        return ordersHistory;
-    }
+
 
     public boolean isHasLoyaltyCard() {
         return hasLoyaltyCard;
@@ -57,7 +61,10 @@ public class Customer {
 
     public void addProductToOrder(Product product) {
         if (currentdOrder == null) {
-            throw new RuntimeException("Ошибка, заказа не существует");
+            throw new NullPointerException("Ошибка, заказа не существует");
+        }
+        if(ProductCash.findProductById(product.getId()) == null){
+            throw new NullPointerException("Продукта не существует");
         }
         currentdOrder.addProductToBasket(product);
     }
@@ -70,7 +77,6 @@ public class Customer {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", orderCount=" + orderCount +
                 ", hasLoyaltyCard=" + hasLoyaltyCard +
-                ", orders=" + ordersHistory +
                 '}';
     }
 }
