@@ -11,15 +11,25 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryRepository {
+public class CategoryRepository implements RepositoryInterface{
+
+
 
     private final ConnectionManager connectionManager;
 
     private final String ID = "id";
     private final String NAME = "name";
 
-    public CategoryRepository(ConnectionManager connectionManager) {
+    private CategoryRepository(ConnectionManager connectionManager) {
         this.connectionManager = connectionManager;
+    }
+
+    private static class Holder{
+        static final CategoryRepository INSTANCE = new CategoryRepository(ConnectionManager.getInstance());
+    }
+
+    public static CategoryRepository getInstance() {
+        return Holder.INSTANCE;
     }
 
     public CategoryDto save(Category category) {

@@ -2,17 +2,26 @@ package productshop.service;
 
 import productshop.entity.Customer;
 import productshop.exceptions.LongNameInputException;
+import productshop.repository.CategoryRepository;
 import productshop.repository.CustomerRepository;
+import productshop.system.ConnectionManager;
 
 import java.util.List;
 
-public class CustomerService {
+public class CustomerService implements ServiceInterface {
 
     private final CustomerRepository customerRepository;
     private final Integer MAX_CUSTOMER_NAME_LENGTH = 60;
 
-    public CustomerService(CustomerRepository customerRepository) {
+    private CustomerService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
+    }
+    private static class Holder{
+        static final CustomerService INSTANCE = new CustomerService(CustomerRepository.getInstance());
+    }
+
+    public static CustomerService getInstance() {
+        return CustomerService.Holder.INSTANCE;
     }
 
     public Customer findCustomerById(Integer id) {

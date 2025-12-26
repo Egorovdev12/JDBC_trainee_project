@@ -1,5 +1,6 @@
 package productshop.repository;
 
+import productshop.service.OrderService;
 import productshop.system.ConnectionManager;
 import productshop.entity.Order;
 
@@ -8,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class OrderRepository {
+public class OrderRepository implements RepositoryInterface {
 
     private final ConnectionManager connectionManager;
     private final String ID = "id";
@@ -16,8 +17,16 @@ public class OrderRepository {
     private final String ORDER_DATE = "order_date";
     private final String TOTAL_PRICE = "total_price";
 
-    public OrderRepository(ConnectionManager connectionManager) {
+    private OrderRepository(ConnectionManager connectionManager) {
         this.connectionManager = connectionManager;
+    }
+
+    private static class Holder{
+        static final OrderRepository INSTANCE = new OrderRepository(ConnectionManager.getInstance());
+    }
+
+    public static OrderRepository getInstance() {
+        return OrderRepository.Holder.INSTANCE;
     }
 
     //TODO полезность метода под сомнением
