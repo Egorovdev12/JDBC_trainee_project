@@ -1,10 +1,6 @@
 package productshop.entity;
 
-import productshop.system.ProductCash;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import productshop.system.cache.ProductCache;
 
 public class Customer {
     private Integer id;
@@ -63,7 +59,7 @@ public class Customer {
         if (currentdOrder == null) {
             throw new NullPointerException("Ошибка, заказа не существует");
         }
-        if(ProductCash.findProductById(product.getId()) == null){
+        if(ProductCache.findProductById(product.getId()) == null){
             throw new NullPointerException("Продукта не существует");
         }
         currentdOrder.addProductToBasket(product);

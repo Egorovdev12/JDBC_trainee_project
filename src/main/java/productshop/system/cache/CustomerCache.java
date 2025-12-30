@@ -1,11 +1,11 @@
-package productshop.system;
+package productshop.system.cache;
 
 import productshop.entity.Customer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerCash {
+public class CustomerCache {
 
     private static List<Customer> CUSTOMERS = new ArrayList<>();
 
@@ -14,7 +14,7 @@ public class CustomerCash {
     }
 
     public static void setCUSTOMERS(List<Customer> CUSTOMERS) {
-        CustomerCash.CUSTOMERS = CUSTOMERS;
+        CustomerCache.CUSTOMERS = CUSTOMERS;
     }
 
     public static void showInfo() {
