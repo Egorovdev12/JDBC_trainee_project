@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerRepository {
+public class CustomerRepository implements RepositoryInterface{
 
     private final ConnectionManager connectionManager;
 
@@ -19,9 +19,19 @@ public class CustomerRepository {
     private final String ORDER_COUNT = "order_count";
     private final String HAS_LOYALTY_CARD = "has_loyalty_card";
 
-    public CustomerRepository(ConnectionManager connectionManager) {
+    private CustomerRepository(ConnectionManager connectionManager) {
         this.connectionManager = connectionManager;
     }
+
+    private static class Holder{
+        static final CustomerRepository INSTANCE = new CustomerRepository(ConnectionManager.getInstance());
+    }
+
+    public static CustomerRepository getInstance() {
+        return CustomerRepository.Holder.INSTANCE;
+    }
+
+
 
     public Customer findCustomerByName(String name) {
         String sql = "select * from customers where name=(?)";

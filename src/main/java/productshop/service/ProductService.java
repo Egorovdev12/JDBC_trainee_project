@@ -1,14 +1,22 @@
 package productshop.service;
 
 import productshop.entity.Product;
+import productshop.repository.CustomerRepository;
 import productshop.repository.ProductRepository;
 
-public class ProductService {
+public class ProductService implements ServiceInterface {
 
     private final ProductRepository productRepository;
 
-    public ProductService(ProductRepository productRepository) {
+    private ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
+    }
+    private static class Holder{
+        static final ProductService INSTANCE = new ProductService(ProductRepository.getInstance());
+    }
+
+    public static ProductService getInstance() {
+        return Holder.INSTANCE;
     }
 
     public Product saveProduct(Product product) {

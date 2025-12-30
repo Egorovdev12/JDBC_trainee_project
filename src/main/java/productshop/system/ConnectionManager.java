@@ -1,5 +1,8 @@
 package productshop.system;
 
+import productshop.repository.CategoryRepository;
+import productshop.settings.DatabaseSettings;
+
 import java.sql.*;
 
 public class ConnectionManager {
@@ -9,31 +12,31 @@ public class ConnectionManager {
     private String password;
     private Connection connection;
 
-    public ConnectionManager setUrl(String url) {
-        this.url = url;
-        return this;
+    private static class Holder{
+        static final ConnectionManager INSTANCE = new ConnectionManager();
     }
 
-    public ConnectionManager setUser(String user) {
-        this.user = user;
-        return this;
+    private ConnectionManager() {
+        this.url = DatabaseSettings.URL;
+        this.user = DatabaseSettings.USERNAME;
+        this.password = DatabaseSettings.PASSWORD;
+        connect();
     }
 
-    public ConnectionManager setPassword(String password) {
-        this.password = password;
-        return this;
+    public static ConnectionManager getInstance(){
+        return Holder.INSTANCE;
     }
 
-    public ConnectionManager connect() {
+    public void connect() {
         try {
             connection = DriverManager.getConnection(url, user, password);
             System.out.println("Успешное подключение к БД");
-            return this;
+
         }
         catch (SQLException exception) {
             System.out.println("Ошибка соединения");
         }
-        return null;
+
     }
 
     public Connection getConnection() {

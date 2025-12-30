@@ -5,14 +5,21 @@ import productshop.exceptions.OrderIsNullException;
 import productshop.repository.CustomerRepository;
 import productshop.repository.OrderRepository;
 
-public class OrderService {
+public class OrderService implements ServiceInterface {
 
     private final CustomerRepository customerRepository;
     private final OrderRepository orderRepository;
 
-    public OrderService(CustomerRepository customerRepository, OrderRepository orderRepository) {
+    private OrderService(CustomerRepository customerRepository, OrderRepository orderRepository) {
         this.customerRepository = customerRepository;
         this.orderRepository = orderRepository;
+    }
+    private static class Holder{
+        static final OrderService INSTANCE = new OrderService(CustomerRepository.getInstance(), OrderRepository.getInstance());
+    }
+
+    public static OrderService getInstance() {
+        return Holder.INSTANCE;
     }
 
     public void confirmOrder(Order order) {

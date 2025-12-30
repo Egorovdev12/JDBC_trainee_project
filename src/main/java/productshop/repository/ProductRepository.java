@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class ProductRepository {
+public class ProductRepository implements RepositoryInterface {
 
     private final ConnectionManager connectionManager;
     private final CategoryRepository categoryRepository;
@@ -16,9 +16,16 @@ public class ProductRepository {
     private final String PRICE = "price";
     private final String CATEGORY_ID = "category_id";
 
-    public ProductRepository(ConnectionManager connectionManager, CategoryRepository categoryRepository) {
+    private ProductRepository(ConnectionManager connectionManager, CategoryRepository categoryRepository) {
         this.connectionManager = connectionManager;
         this.categoryRepository = categoryRepository;
+    }
+    private static class Holder{
+        static final ProductRepository INSTANCE = new ProductRepository(ConnectionManager.getInstance(), CategoryRepository.getInstance());
+    }
+
+    public static ProductRepository getInstance() {
+        return ProductRepository.Holder.INSTANCE;
     }
 
     public Product save(Product product) {
