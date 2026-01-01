@@ -1,6 +1,5 @@
 package productshop.system;
 
-import productshop.repository.CategoryRepository;
 import productshop.settings.DatabaseSettings;
 
 import java.sql.*;

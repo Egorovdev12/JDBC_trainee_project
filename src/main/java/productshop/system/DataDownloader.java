@@ -3,6 +3,8 @@ package productshop.system;
 import productshop.entity.Customer;
 import productshop.entity.Product;
 import productshop.repository.CategoryRepository;
+import productshop.system.cache.CustomerCache;
+import productshop.system.cache.ProductCache;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,22 +19,21 @@ public class DataDownloader {
     private final String NAME = "name";
     private final String PRICE = "price";
     private final String CATEGORY_ID = "category_id";
-    private final CategoryRepository categoryRepository;
     private final String PHONE_NUMBER = "phone_number";
     private final String ORDER_COUNT = "order_count";
     private final String HAS_LOYALTY_CARD = "has_loyalty_card";
 
-    public DataDownloader(ConnectionManager connectionManager, CategoryRepository categoryRepository) {
+    public DataDownloader(ConnectionManager connectionManager) {
         this.connectionManager = connectionManager;
-        this.categoryRepository = categoryRepository;
     }
 
-    public  void start() {
+    public void downloadDataAboutCurrentProductsAndCustomers() {
         downloadCustomers();
         downloadProducts();
     }
 
-    public  void downloadProducts() {
+    private void downloadProducts() {
+        CategoryRepository categoryRepository = CategoryRepository.getInstance();
         List<Product> products = new ArrayList<>();
         String sql = "select * from product";
         try(Statement statement = connectionManager.getConnection().createStatement()){
@@ -45,26 +46,25 @@ public class DataDownloader {
                         categoryRepository.getCategoryById(rs.getInt(CATEGORY_ID))
                 ));
             }
-            ProductCash.setPRODUCTS(products);
-        }catch (SQLException e){
+            ProductCache.setPRODUCTS(products);
+        } catch (SQLException e) {
             System.out.println("SQLException: " + e.getMessage());
         }
     }
 
-    public  void downloadCustomers() {
+    private void downloadCustomers() {
         List<Customer> customers = new ArrayList<>();
         String sql = "select * from customers";
-        try(Statement statement = connectionManager.getConnection().createStatement()){
+        try(Statement statement = connectionManager.getConnection().createStatement()) {
             ResultSet rs = statement.executeQuery(sql);
-            while(rs.next()){
+            while(rs.next()) {
                 customers.add(new Customer(rs.getInt(ID), rs.getString(NAME), rs.getString(PHONE_NUMBER), rs.getBoolean(HAS_LOYALTY_CARD),
                         rs.getInt(ORDER_COUNT)));
                 System.out.println();
             }
-            CustomerCash.setCUSTOMERS(customers);
-        }catch (SQLException e){
+            CustomerCache.setCUSTOMERS(customers);
+        } catch (SQLException e) {
             System.out.println("SQLException: " + e.getMessage());
         }
     }
-
 }

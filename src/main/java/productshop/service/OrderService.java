@@ -1,10 +1,12 @@
 package productshop.service;
 
+import productshop.system.annotations.Service;
 import productshop.entity.Order;
 import productshop.exceptions.OrderIsNullException;
 import productshop.repository.CustomerRepository;
 import productshop.repository.OrderRepository;
 
+@Service
 public class OrderService implements ServiceInterface {
 
     private final CustomerRepository customerRepository;
@@ -14,7 +16,8 @@ public class OrderService implements ServiceInterface {
         this.customerRepository = customerRepository;
         this.orderRepository = orderRepository;
     }
-    private static class Holder{
+
+    private static class Holder {
         static final OrderService INSTANCE = new OrderService(CustomerRepository.getInstance(), OrderRepository.getInstance());
     }
 

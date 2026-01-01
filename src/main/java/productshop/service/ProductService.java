@@ -1,9 +1,10 @@
 package productshop.service;
 
+import productshop.system.annotations.Service;
 import productshop.entity.Product;
-import productshop.repository.CustomerRepository;
 import productshop.repository.ProductRepository;
 
+@Service
 public class ProductService implements ServiceInterface {
 
     private final ProductRepository productRepository;

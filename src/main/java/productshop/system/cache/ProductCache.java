@@ -1,11 +1,11 @@
-package productshop.system;
+package productshop.system.cache;
 
 import productshop.entity.Product;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductCash {
+public class ProductCache {
 
     private static List<Product> PRODUCTS = new ArrayList<>();
 
@@ -14,7 +14,7 @@ public class ProductCash {
     }
 
     public static void setPRODUCTS(List<Product> PRODUCTS) {
-        ProductCash.PRODUCTS = PRODUCTS;
+        ProductCache.PRODUCTS = PRODUCTS;
     }
 
     public static void showInfo() {

@@ -1,5 +1,6 @@
 package productshop.repository;
 
+import productshop.system.annotations.Repository;
 import productshop.system.ConnectionManager;
 import productshop.entity.Customer;
 
@@ -9,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class CustomerRepository implements RepositoryInterface{
 
     private final ConnectionManager connectionManager;

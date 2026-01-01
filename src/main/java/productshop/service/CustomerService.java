@@ -1,13 +1,13 @@
 package productshop.service;
 
+import productshop.system.annotations.Service;
 import productshop.entity.Customer;
 import productshop.exceptions.LongNameInputException;
-import productshop.repository.CategoryRepository;
 import productshop.repository.CustomerRepository;
-import productshop.system.ConnectionManager;
 
 import java.util.List;
 
+@Service
 public class CustomerService implements ServiceInterface {
 
     private final CustomerRepository customerRepository;

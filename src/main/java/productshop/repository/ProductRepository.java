@@ -1,5 +1,6 @@
 package productshop.repository;
 
+import productshop.system.annotations.Repository;
 import productshop.system.ConnectionManager;
 import productshop.entity.Product;
 import java.sql.PreparedStatement;
@@ -7,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+@Repository
 public class ProductRepository implements RepositoryInterface {
 
     private final ConnectionManager connectionManager;

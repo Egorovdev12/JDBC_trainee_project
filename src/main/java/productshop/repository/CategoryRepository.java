@@ -1,5 +1,6 @@
 package productshop.repository;
 
+import productshop.system.annotations.Repository;
 import productshop.system.ConnectionManager;
 import productshop.entity.category.Category;
 import productshop.entity.category.CategoryDto;
@@ -11,9 +12,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryRepository implements RepositoryInterface{
-
-
+@Repository
+public class CategoryRepository implements RepositoryInterface {
 
     private final ConnectionManager connectionManager;
 
@@ -24,7 +24,7 @@ public class CategoryRepository implements RepositoryInterface{
         this.connectionManager = connectionManager;
     }
 
-    private static class Holder{
+    private static class Holder {
         static final CategoryRepository INSTANCE = new CategoryRepository(ConnectionManager.getInstance());
     }
 
