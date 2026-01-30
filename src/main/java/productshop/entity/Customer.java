@@ -45,8 +45,6 @@ public class Customer {
         return orderCount;
     }
 
-
-
     public boolean isHasLoyaltyCard() {
         return hasLoyaltyCard;
     }

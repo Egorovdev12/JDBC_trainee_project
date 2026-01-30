@@ -3,7 +3,6 @@ package productshop.repository;
 import productshop.system.annotations.Repository;
 import productshop.system.ConnectionManager;
 import productshop.entity.Customer;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class CustomerRepository implements RepositoryInterface{
+public class CustomerRepository implements RepositoryInterface {
 
     private final ConnectionManager connectionManager;
 
@@ -25,15 +24,13 @@ public class CustomerRepository implements RepositoryInterface{
         this.connectionManager = connectionManager;
     }
 
-    private static class Holder{
+    private static class Holder {
         static final CustomerRepository INSTANCE = new CustomerRepository(ConnectionManager.getInstance());
     }
 
     public static CustomerRepository getInstance() {
         return CustomerRepository.Holder.INSTANCE;
     }
-
-
 
     public Customer findCustomerByName(String name) {
         String sql = "select * from customers where name=(?)";

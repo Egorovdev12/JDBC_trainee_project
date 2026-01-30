@@ -39,16 +39,24 @@ public class Order {
 
     public void addProductToBasket(Product product) {
          basket.add(product);
-         renewPrice(product.getPrice());
+         renewPrice();
     }
 
     public void removeProductFromBasket(Product product) {
          basket.remove(product);
-         renewPrice(product.getPrice()*-1);
+         renewPrice();
     }
 
-    public void renewPrice(double price) {
-        this.price = this.price + price;
+    public void renewPrice() {
+        double freshPrice = 0;
+        for (Product product : basket) {
+            freshPrice = freshPrice + product.getPrice();
+        }
+        price = freshPrice;
+    }
+
+    public List<Product> getBasket() {
+        return basket;
     }
 
     @Override
