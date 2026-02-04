@@ -5,7 +5,6 @@ import productshop.system.annotations.Repository;
 import productshop.system.annotations.Service;
 import productshop.repository.RepositoryInterface;
 import productshop.service.ServiceInterface;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Set;
@@ -16,7 +15,7 @@ public class ApplicationStarter {
     public static void start() {
         scanClasspathAndFoundAnnotations();
         DataDownloader dataDownloader = new DataDownloader(ConnectionManager.getInstance());
-        dataDownloader.downloadDataAboutCurrentProductsAndCustomers();
+        dataDownloader.downloadDataAboutAll();
     }
 
     private static void scanClasspathAndFoundAnnotations() {

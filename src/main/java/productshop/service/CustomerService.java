@@ -16,6 +16,7 @@ public class CustomerService implements ServiceInterface {
     private CustomerService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
+
     private static class Holder{
         static final CustomerService INSTANCE = new CustomerService(CustomerRepository.getInstance());
     }

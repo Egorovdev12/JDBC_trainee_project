@@ -2,21 +2,15 @@ package productshop.entity;
 
 import productshop.entity.category.Category;
 
-public class Product {
+public final class Product {
 
-    private Integer id;
-    private String name;
-    private double price;
+    private final Integer id;
+    private final String name;
+    private final double price;
     private final Category category;
 
     public Product(Integer id, String name, double price, Category category) {
         this.id = id;
-        this.name = name;
-        this.price = price;
-        this.category = category;
-    }
-
-    public Product(String name, double price, Category category) {
         this.name = name;
         this.price = price;
         this.category = category;
